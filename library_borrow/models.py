@@ -46,4 +46,3 @@ class Payment(models.Model):
     def __str__(self):
         return f"{self.status}, {self.type}, {self.borrowing}, {self.session_id}"
 
-

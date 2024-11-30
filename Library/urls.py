@@ -21,7 +21,7 @@ from django.urls.conf import include
 
 
 urlpatterns = ([
-        path('admin/', admin.site.urls),
-        path('library-api-1/', include("library_borrow.urls"), name="library-api-1"),
+        path("admin/", admin.site.urls),
+        path("library-api-1/", include("library_borrow.urls"), name="library-api-1"),
 ])
 
