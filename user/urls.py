@@ -12,12 +12,6 @@ from rest_framework_simplejwt.views import (
 
 from user.views import UserViewSet
 
-from drf_spectacular.views import (
-    SpectacularAPIView,
-    SpectacularSwaggerView,
-    SpectacularRedocView,
-)
-
 app_name = "user"
 router = DefaultRouter()
 router.register("user", UserViewSet, basename="user")
