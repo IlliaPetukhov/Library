@@ -9,10 +9,9 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView,
 )
-
 from user.views import UserViewSet
 
-app_name = "user"
+
 router = DefaultRouter()
 router.register("user", UserViewSet, basename="user")
 
@@ -22,3 +21,5 @@ urlpatterns = [
     path("token/verify/", TokenVerifyView.as_view(), name="token_verify"),
     path("manage/", include(router.urls), name="user"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+app_name = "user"
