@@ -31,6 +31,7 @@ urlpatterns = ([
         path("admin/", admin.site.urls),
         path("library-api-1/", include("library_borrow.urls"), name="library-api-1"),
         path("user/", include("user.urls"), name="user"),
+
         path("api/doc/schema/", SpectacularAPIView.as_view(),
                        name="schema"),
         path(

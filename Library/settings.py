@@ -135,8 +135,8 @@ SIMPLE_JWT = {
 }
 
 SPECTACULAR_SETTINGS = {
-    "TITLE": "Train Service API",
-    "DESCRIPTION": "Order station tickets",
+    "TITLE": "Library",
+    "DESCRIPTION": "Borrow books",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
     "SWAGGER_UI_SETTINGS": {
