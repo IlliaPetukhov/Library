@@ -1,3 +1,4 @@
+import os
 from unicodedata import decimal
 
 from django.shortcuts import render
@@ -36,6 +37,7 @@ class BorrowingViewSet(viewsets.ModelViewSet):
         money_to_pay = int(total_borrowed_days) * book.daily_fee
 
         try:
+            stripe.api_key = "sk_test_51QRcR8ImIdeVZN8rcgPhiY7ghbX1U2l3p4SRfOhm9wk7hfqg68NxHzRH9LxdX0RATDKUnjEWtgz3OS2rd67aT74h00aDptRPBD"
             book = borrowing.book
             session = stripe.checkout.Session.create(
                 payment_method_types=["card"],
@@ -46,16 +48,15 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                             "product_data": {
                                 "name": book.title,
                             },
-                            "unit_amount": money_to_pay * 100
+                            "unit_amount": int(money_to_pay * 100)
                         },
                         "quantity": 1,
                     },
                 ],
                 mode="payment",
-                success_url="http://127.0.0.1:8000/",
-                cancel_url="http://127.0.0.1:8000/",
+                success_url="http://127.0.0.1:8000/success/",
+                cancel_url="http://127.0.0.1:8000/cancel/",
             )
-            print(session.url)
             Payment.objects.create(
                 status="PENDING",
                 type="PAYMENT",
