@@ -59,8 +59,8 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                     },
                 ],
                 mode="payment",
-                success_url="http://127.0.0.1:8000/success/",
-                cancel_url="http://127.0.0.1:8000/cancel/",
+                success_url="http://localhost:8000/library-api-1/payments/",
+                cancel_url="http://localhost:8000/library-api-1/payments/",
             )
             Payment.objects.create(
                 status="PENDING",
@@ -83,10 +83,12 @@ class BorrowingViewSet(viewsets.ModelViewSet):
 
         if total_fine_borrowed_days != 0:
             book = serializer.validated_data["book"]
-            payments = Payment.objects.get(borrowing=borrowing)
-            payments.type = ("FINE")
-            payments.save()
             fine_money_to_pay = total_fine_borrowed_days * book.daily_fee
+            payments = Payment.objects.get(borrowing=borrowing)
+            payments.status = "PENDING"
+            payments.type = "FINE"
+            payments.money_to_pay = fine_money_to_pay
+            payments.save()
 
             try:
                 book = borrowing.book
@@ -105,10 +107,11 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                         },
                     ],
                     mode="payment",
-                    success_url="http://localhost:8000/library-api-1/borrowings/",
-                    cancel_url="http://127.0.0.1:8000/cancel/",
+                    success_url="http://localhost:8000/library-api-1/payments/",
+                    cancel_url="http://localhost:8000/library-api-1/payments/",
                 )
                 payments.session_url = session_fine.url
+                payments.session_id = session_fine.id
                 payments.save()
                 return Response({"session_url": session_fine.url})
             except stripe.error.StripeError as e:

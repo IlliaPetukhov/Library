@@ -27,6 +27,7 @@ class BorrowingSerializerPost(serializers.ModelSerializer):
     class Meta:
         model = Borrowing
         fields = [
+            "id",
             "borrow_date",
             "expected_return_date",
             "book",

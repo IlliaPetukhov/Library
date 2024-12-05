@@ -38,7 +38,8 @@ class SessionCompletedAPIView(APIView):
                 payment = Payment.objects.get(session_id=session_id)
                 payment.status = "PAID"
                 if payment.type == "FINE":
-                    payment.type == "PAYMENT"
+                    payment.type = "PAYMENT"
+                payment.money_to_pay = 0.0
                 payment.save()
             except Payment.DoesNotExist:
                 return Response({"error": "Payment not found"}, status=404)
