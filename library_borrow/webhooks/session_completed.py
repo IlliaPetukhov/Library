@@ -6,9 +6,13 @@ import stripe
 from library_borrow.models import Payment
 
 stripe.api_key = "sk_test_51QRcR8ImIdeVZN8rcgPhiY7ghbX1U2l3p4SRfOhm9wk7hfqg68NxHzRH9LxdX0RATDKUnjEWtgz3OS2rd67aT74h00aDptRPBD"
-endpoint_secret = "whsec_6Zk8BLuflDHxBLlWqvEcUI80hdAeA4Wk"
+endpoint_secret = "whsec_020bd9f416bc4ffd4a65b588d0f62753e634aa720e50e3e1a58315d989cb94ea"
+SUPPORTED_EVENTS = [
+    "checkout.session.completed",
+    "checkout.session.expired",
+]
 
-class SessionCompleted(APIView):
+class SessionCompletedAPIView(APIView):
     authentication_classes = []
     permission_classes = []
 
@@ -17,10 +21,11 @@ class SessionCompleted(APIView):
         sig_header = request.META.get("HTTP_STRIPE_SIGNATURE", "")
 
         try:
-
             event = stripe.Webhook.construct_event(
                 payload, sig_header, endpoint_secret
             )
+            if event["type"] not in SUPPORTED_EVENTS:
+                return Response({"message": "Event ignored"}, status=200)
         except ValueError:
             return Response({"error": "Invalid payload"}, status=400)
         except stripe.error.SignatureVerificationError:
@@ -32,6 +37,8 @@ class SessionCompleted(APIView):
             try:
                 payment = Payment.objects.get(session_id=session_id)
                 payment.status = "PAID"
+                if payment.type == "FINE":
+                    payment.type == "PAYMENT"
                 payment.save()
             except Payment.DoesNotExist:
                 return Response({"error": "Payment not found"}, status=404)

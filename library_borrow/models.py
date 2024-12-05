@@ -16,7 +16,7 @@ class Book(models.Model):
     daily_fee = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"{self.title}, {self.author}, {self.daily_fee}"
+        return f"Title: {self.title}, Author: {self.author}, Daily fee: {self.daily_fee} $"
 
 class Borrowing(models.Model):
     borrow_date = models.DateField(auto_now=True)

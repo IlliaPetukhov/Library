@@ -16,7 +16,7 @@ Including another URLconf
 """
 
 from django.contrib import admin
-from library_borrow.webhooks.session_completed import SessionCompleted
+from library_borrow.webhooks.session_completed import SessionCompletedAPIView
 from django.urls import path
 from django.urls.conf import include
 from django.conf.urls.static import static
@@ -44,5 +44,5 @@ urlpatterns = ([
                 SpectacularRedocView.as_view(url_name="schema"),
                        name="redoc"),
         path("__debug__/", include("debug_toolbar.urls")),
-        path("webhook/stripe/', SessionCompleted.as_view(), name='stripe-webhook")
+        path("webhook/stripe/", SessionCompletedAPIView.as_view(), name="stripe-webhook")
 ]) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
