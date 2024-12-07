@@ -6,8 +6,8 @@ from library_borrow.views import (
 )
 
 router = routers.DefaultRouter()
-router.register("books", BookViewSet)
-router.register("borrowings", BorrowingViewSet)
-router.register("payments", PaymentViewSet)
+router.register("books", BookViewSet, basename="books")
+router.register("borrowings", BorrowingViewSet, basename="borrowings")
+router.register("payments", PaymentViewSet, basename="payments")
 urlpatterns = router.urls
 app_name = "library-api-1"
