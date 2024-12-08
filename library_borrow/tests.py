@@ -66,16 +66,16 @@ class AllModelsForAuthorizedUsers(APITestCase):
             status="PENDING",
             type="PAYMENT",
             borrowing=self.borrowing_1,
-            session_url="https://checkout.stripe.com/c/pay/cs_test_a16jyOwXKSxwhWGvxPfGctGi5k7fJs3yERFWuNzmyvqQ0BRfRiENs1H3vV#fidkdWxOYHwnPyd1blpxYHZxWjA0VFdmVz1MaExhYFNfSz13bUlrTzAyYDxnPWw3dEJiVExOfWFJQERkU39ScWo2dzBJbVRkYlx%2FYnB0bk5PMUdXMXRMQTU2cTFAMUN8R3xsSVBLQkhqaHZyNTVfbHRLMWZ%2FQCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-            session_id="cs_test_a16jyOwXKSxwhWGvxPfGctGi5k7fJs3yERFWuNzmyvqQ0BRfRiENs1H3vV",
+            session_url="https://checkout.stripe.com/c/pay/#%%%2FcXdwYHgl",
+            session_id="cs_test_a16jyOwXKSxwhWGvxPfGctGis1H3vV",
             money_to_pay=30.12,
         )
         self.payment_2 = Payment.objects.create(
             status="PENDING",
             type="PAYMENT",
             borrowing=self.borrowing_2,
-            session_url="https://checkout.stripe.com/c/pay/cs_test_a16jyOwXKSxwhWGvxPfGctGi5k7fJs3yERFWuNzmyvqQ0BRfRiENs1H3vV#fidkdWxOYHwnPyd1blpxYHZxWjA0VFdmVz1MaExhYFNfSz13bUlrTzAyYDxnPWw3dEJiVExOfWFJQERkU39ScWo2dzBJbVRkYlx%2FYnB0bk5PMUdXMXRMQTU2cTFAMUN8R3xsSVBLQkhqaHZyNTVfbHRLMWZ%2FQCcpJ2N3amhWYHdzYHcnP3F3cGApJ2lkfGpwcVF8dWAnPyd2bGtiaWBabHFgaCcpJ2BrZGdpYFVpZGZgbWppYWB3dic%2FcXdwYHgl",
-            session_id="cs_test_a16jyOwXKSxwhWGvxPfGctGi5k7fJs3yERFWuNzmyvqQ0BRfRiENs1H3vV",
+            session_url="https://checkout.stripe.com/c/pay/#%%%2FcXdwYHgl",
+            session_id="cs_test_a16jyOwXKSxwhWGvxP1H3vV",
             money_to_pay=30.12,
         )
 

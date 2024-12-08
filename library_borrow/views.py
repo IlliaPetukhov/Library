@@ -1,13 +1,10 @@
 import os
-from unicodedata import decimal
-from urllib import request
-
 from django.core.exceptions import ValidationError
 from django.shortcuts import render
 from rest_framework import viewsets
 from drf_spectacular.utils import extend_schema, OpenApiParameter
 
-from library_borrow.models import *
+from library_borrow.models import Borrowing
 from library_borrow.serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -19,7 +16,7 @@ import stripe
 
 from .permissions import IsAdminOrReadOnly, ReadOnlyOrCreateIfAdmin
 
-stripe.api_key = "sk_test_51QRcR8ImIdeVZN8rcgPhiY7ghbX1U2l3p4SRfOhm9wk7hfqg68NxHzRH9LxdX0RATDKUnjEWtgz3OS2rd67aT74h00aDptRPBD"
+stripe.api_key = os.environ["STRIPE_SECRET_KEY"]
 
 
 class BookViewSet(viewsets.ModelViewSet):
