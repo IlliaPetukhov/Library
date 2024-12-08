@@ -1,9 +1,5 @@
 from rest_framework import routers
-from library_borrow.views import (
-    BorrowingViewSet,
-    PaymentViewSet,
-    BookViewSet
-)
+from library_borrow.views import BorrowingViewSet, PaymentViewSet, BookViewSet
 
 router = routers.DefaultRouter()
 router.register("books", BookViewSet, basename="books")

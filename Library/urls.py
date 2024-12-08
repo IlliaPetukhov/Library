@@ -28,21 +28,25 @@ from drf_spectacular.views import (
 )
 
 
-urlpatterns = ([
+urlpatterns = (
+    [
         path("admin/", admin.site.urls),
         path("library-api-1/", include("library_borrow.urls"), name="library-api-1"),
         path("user/", include("user.urls"), name="user"),
-
-        path("api/doc/schema/", SpectacularAPIView.as_view(),
-                       name="schema"),
+        path("api/doc/schema/", SpectacularAPIView.as_view(), name="schema"),
         path(
             "api/doc/swagger/",
-                SpectacularSwaggerView.as_view(url_name="schema"),
-                       name="swagger-ui"),
+            SpectacularSwaggerView.as_view(url_name="schema"),
+            name="swagger-ui",
+        ),
         path(
             "api/doc/redoc/",
-                SpectacularRedocView.as_view(url_name="schema"),
-                       name="redoc"),
+            SpectacularRedocView.as_view(url_name="schema"),
+            name="redoc",
+        ),
         path("__debug__/", include("debug_toolbar.urls")),
-        path("webhook/stripe/", SessionCompletedAPIView.as_view(), name="stripe-webhook")
-]) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        path(
+            "webhook/stripe/", SessionCompletedAPIView.as_view(), name="stripe-webhook"
+        ),
+    ]
+) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

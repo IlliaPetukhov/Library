@@ -8,6 +8,7 @@ class BookSerializer(serializers.ModelSerializer):
         model = Book
         fields = "__all__"
 
+
 class BorrowingSerializerGet(serializers.ModelSerializer):
     book = BookSerializer()
     user = UserSerializer()
@@ -21,8 +22,9 @@ class BorrowingSerializerGet(serializers.ModelSerializer):
             "actual_return_date",
             "book",
             "user",
-            "is_active"
+            "is_active",
         ]
+
 
 class BorrowingSerializerPost(serializers.ModelSerializer):
     class Meta:
@@ -32,6 +34,7 @@ class BorrowingSerializerPost(serializers.ModelSerializer):
             "expected_return_date",
             "book",
         ]
+
 
 class BorrowingSerializerUpdate(serializers.ModelSerializer):
     class Meta:
@@ -47,4 +50,3 @@ class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Payment
         fields = "__all__"
-

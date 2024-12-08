@@ -11,7 +11,7 @@ from library_borrow.models import *
 from library_borrow.serializers import *
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from django.shortcuts import get_object_or_404
 from django.conf import settings
 from .models import Book
@@ -26,6 +26,7 @@ class BookViewSet(viewsets.ModelViewSet):
     permission_classes = [ReadOnlyOrCreateIfAdmin]
     serializer_class = BookSerializer
     queryset = Book.objects.all()
+
 
 class BorrowingViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
@@ -51,6 +52,7 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             borrowing = borrowing.filter(user=self.request.user)
 
         return borrowing
+
     @extend_schema(
         parameters=[
             OpenApiParameter(
@@ -60,13 +62,11 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             OpenApiParameter(
                 name="is_active",
                 description="Whether the user is active or not",
-            )
+            ),
         ]
     )
     def list(self, request, *args, **kwargs):
         return super().list(request, *args, **kwargs)
-
-
 
     def get_serializer_class(self):
         if self.request.method == "GET":
@@ -74,7 +74,6 @@ class BorrowingViewSet(viewsets.ModelViewSet):
         elif self.request.method == "POST":
             return BorrowingSerializerPost
         return BorrowingSerializerUpdate
-
 
     def perform_create(self, serializer):
         book = serializer.validated_data["book"]
@@ -97,7 +96,7 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                             "product_data": {
                                 "name": book.title,
                             },
-                            "unit_amount": int(money_to_pay * 100)
+                            "unit_amount": int(money_to_pay * 100),
                         },
                         "quantity": 1,
                     },
@@ -120,7 +119,6 @@ class BorrowingViewSet(viewsets.ModelViewSet):
         except stripe.error.StripeError as e:
             return Response({"error": str(e)}, status=400)
 
-
     def perform_update(self, serializer):
         borrowing = serializer.save()
         borrow = Borrowing.objects.get(id=borrowing.id)
@@ -128,7 +126,7 @@ class BorrowingViewSet(viewsets.ModelViewSet):
         expected_return_date = borrow.expected_return_date
         actual_return_date = borrow.actual_return_date
 
-        if actual_return_date and borrow.is_active==True:
+        if actual_return_date and borrow.is_active == True:
             book.inventory = book.inventory + 1
             borrow.is_active = False
             borrow.save()
@@ -156,7 +154,7 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                                 "product_data": {
                                     "name": book.title,
                                 },
-                                "unit_amount": int(fine_money_to_pay * 100)
+                                "unit_amount": int(fine_money_to_pay * 100),
                             },
                             "quantity": 1,
                         },
@@ -171,9 +169,6 @@ class BorrowingViewSet(viewsets.ModelViewSet):
                 return Response({"session_url": session_fine.url})
             except stripe.error.StripeError as e:
                 return Response({"error": str(e)}, status=400)
-
-
-
 
 
 class PaymentViewSet(viewsets.ModelViewSet):

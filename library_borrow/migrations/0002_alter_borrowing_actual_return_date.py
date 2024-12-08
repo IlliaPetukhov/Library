@@ -6,13 +6,13 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('library_borrow', '0001_initial'),
+        ("library_borrow", "0001_initial"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='borrowing',
-            name='actual_return_date',
+            model_name="borrowing",
+            name="actual_return_date",
             field=models.DateField(blank=True, null=True),
         ),
     ]

@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+
 class Book(models.Model):
     title = models.CharField(max_length=100)
     author = models.CharField(max_length=100)
@@ -16,7 +17,10 @@ class Book(models.Model):
     daily_fee = models.DecimalField(max_digits=10, decimal_places=2)
 
     def __str__(self):
-        return f"Title: {self.title}, Author: {self.author}, Daily fee: {self.daily_fee} $"
+        return (
+            f"Title: {self.title}, Author: {self.author}, Daily fee: {self.daily_fee} $"
+        )
+
 
 class Borrowing(models.Model):
     borrow_date = models.DateField(auto_now=True)
@@ -28,6 +32,7 @@ class Borrowing(models.Model):
 
     def __str__(self):
         return f"{self.book}, {self.user}, {self.actual_return_date}"
+
 
 class Payment(models.Model):
     STATUS_CHOICES = [
@@ -44,6 +49,6 @@ class Payment(models.Model):
     session_url = models.URLField()
     session_id = models.CharField(max_length=100)
     money_to_pay = models.DecimalField(max_digits=10, decimal_places=2)
+
     def __str__(self):
         return f"{self.status}, {self.type}, {self.borrowing}, {self.session_id}"
-
