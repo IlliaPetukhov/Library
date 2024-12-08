@@ -42,8 +42,8 @@ class BorrowingViewSet(viewsets.ModelViewSet):
             if user_id_filter:
                 try:
                     borrowing = borrowing.filter(user=int(user_id_filter))
-                except Exception as e:
-                    raise ValidationError(e)
+                except Exception as w:
+                    raise ValidationError(w)
 
         else:
             borrowing = borrowing.filter(user=self.request.user)
