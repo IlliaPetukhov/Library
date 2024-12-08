@@ -17,12 +17,13 @@ from django.conf import settings
 from .models import Book
 import stripe
 
-from .permissions import IsAdminOrReadOnly
+from .permissions import IsAdminOrReadOnly, ReadOnlyOrCreateIfAdmin
 
 stripe.api_key = "sk_test_51QRcR8ImIdeVZN8rcgPhiY7ghbX1U2l3p4SRfOhm9wk7hfqg68NxHzRH9LxdX0RATDKUnjEWtgz3OS2rd67aT74h00aDptRPBD"
 
 
 class BookViewSet(viewsets.ModelViewSet):
+    permission_classes = [ReadOnlyOrCreateIfAdmin]
     serializer_class = BookSerializer
     queryset = Book.objects.all()
 
