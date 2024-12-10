@@ -98,3 +98,7 @@ docker-compose.override.yml
 .AppleDouble
 .LSOverride
 
+pgdata/
+*.pgsql
+*.backup
+
