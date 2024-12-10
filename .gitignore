@@ -7,6 +7,11 @@ local_settings.py
 db.sqlite3
 db.sqlite3-journal
 media
+staticfiles/
+static/
+.idea
+__pycache__
+.env
 
 ### Django.Python Stack ###
 *.py[cod]
@@ -62,8 +67,7 @@ __pypackages__/
 celerybeat-schedule
 celerybeat.pid
 *.sage.py
-.env
-.venv
+venv
 env/
 venv/
 ENV/
@@ -79,3 +83,18 @@ dmypy.json
 .pyre/
 .pytype/
 cython_debug/
+
+### Docker ###
+*.pid
+docker-compose.override.yml
+.env.docker
+
+### IDE Specific ###
+.vscode/
+
+### OS Specific ###
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
