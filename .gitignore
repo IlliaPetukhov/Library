@@ -99,5 +99,5 @@ docker-compose.override.yml
 .LSOverride
 
 pgdata/
-*.pgsql
+
 
