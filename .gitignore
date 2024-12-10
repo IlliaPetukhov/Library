@@ -100,5 +100,4 @@ docker-compose.override.yml
 
 pgdata/
 *.pgsql
-*.backup
 
