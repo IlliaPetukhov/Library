@@ -12,7 +12,7 @@ static/
 .idea
 __pycache__
 .env
-
+identifier.sqlite
 ### Django.Python Stack ###
 *.py[cod]
 *$py.class
@@ -99,5 +99,4 @@ docker-compose.override.yml
 .LSOverride
 
 pgdata/
-
 
