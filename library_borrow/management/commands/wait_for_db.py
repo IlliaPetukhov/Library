@@ -15,7 +15,7 @@ class Command(BaseCommand):
                 db_connection.ensure_connection()
                 self.stdout.write("Trying to connect...")
             except OperationalError:
-                self.stdout.write("There is a problem connecting to the database, trying again...")
+                self.stdout.write("There is a problem connecting to the database, trying again....")
                 time.sleep(3)
             except Exception as e:
                 self.stdout.write(f"An error occurred: {str(e)}")
