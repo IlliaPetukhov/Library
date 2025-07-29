@@ -1,46 +1,116 @@
-# Library
-___
-## Description about this poject
+# 📚 Library API
 
- In our city library, the process of borrowing books and managing transactions is outdated and inefficient. Borrowers must pay for their borrowings in cash, and the library tracks users, books, borrowings, and payments manually on paper. This traditional system presents several challenges:
+**Library API** is a full-featured RESTful backend service for managing books, users, borrowing operations, and online payments via Stripe. Built using Django, Django REST Framework, JWT authentication, and Docker — with support for local development via ngrok and webhook integration.
 
-- No way to check the availability of specific books in real-time.
-- Limited payment options, restricted to cash only.
-- Inability to easily track who returned books on time and who did not.
-- Inefficient and time-consuming manual record-keeping.
+## 🔧 Features
 
-This project aims to address these issues by implementing an online library management system for book borrowings.
-___
-# Commands to run:
-### Clone the repository
+- 🔐 JWT-based authentication (registration, login, token refresh)
+- 📚 Full CRUD operations for books
+- 👤 User profiles and role-based access
+- 🔄 Borrowing and returning books
+- 💳 Stripe Checkout integration for payment processing
+- 🔔 Stripe Webhook support for payment status updates
+- 🧪 Local tunnel testing via ngrok
+- 🐳 Docker support for containerized development
+- 📄 Auto-generated API documentation (Swagger & ReDoc)
 
-``` git clone https://github.com/your-repo/project-name.git ```
+## 🛠 Tech Stack
 
-``` cd project-name ```
+**Backend:** Django, Django REST Framework  
+**Authentication:** Simple JWT  
+**Payments:** Stripe Checkout + Webhooks  
+**Documentation:** drf-yasg (Swagger), ReDoc  
+**Dev Tools:** Docker, ngrok, Git, virtualenv  
+**Database:** SQLite / PostgreSQL (configurable)
 
-### Set up the Python virtual environment
+## ⚙️ Installation
 
-``` python -m venv venv ```
+```bash
+# Clone the repository
+git clone https://github.com/IlliaPetukhov/Library.git
+cd Library
 
-``` source venv/bin/activate ```
+# Create and activate a virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-### Installing all requirements
+# Install dependencies
+pip install -r requirements.txt
 
-``` pip install -r requirements.txt ```
+# Apply migrations
+python manage.py migrate
 
-### Copy all from .env.example to .env
+# Start the server
+python manage.py runserver
+```
 
-``` cp .env.example .env ```
+## 🧾 Environment Variables
 
-### Run the docker
+Create a `.env` file in the root directory with the following:
 
-``` docker-compose up --build ```
+```
+SECRET_KEY=your_django_secret_key
+DEBUG=True
+STRIPE_SECRET_KEY=your_stripe_secret_key
+STRIPE_WEBHOOK_SECRET=your_stripe_webhook_secret
+```
 
+## 🐳 Run with Docker
 
-## How to Access
-Once the containers are up, open your browser and navigate to: 
-##### http://localhost:8000
+```bash
+# Build and run the container
+docker build -t library-api .
+docker run -p 8000:8000 library-api
+```
 
-## Additional Notes
+## 🌐 Webhook Testing with ngrok
 
-#### Get sure that you has configurated your .env proparly before running docker
+If you're running locally and want to test Stripe webhooks:
+
+```bash
+ngrok http 8000
+```
+
+Set your Stripe webhook URL to:
+
+```
+https://your-ngrok-subdomain.ngrok.io/stripe/webhook/
+```
+
+## 🔑 Authentication Endpoints
+
+| Method | Endpoint              | Description                         |
+|--------|-----------------------|-------------------------------------|
+| POST   | `/api/token/`         | Obtain JWT access and refresh token |
+| POST   | `/api/token/refresh/` | Refresh JWT token                   |
+
+## 📘 API Documentation
+
+Once the server is running, visit:
+
+- [http://localhost:8000/swagger/](http://localhost:8000/swagger/) — Swagger UI  
+- [http://localhost:8000/redoc/](http://localhost:8000/redoc/) — ReDoc
+
+## 📁 Project Structure
+
+<details>
+<summary>Click to expand</summary>
+
+```
+Library/
+├── user/              # User management & authentication
+├── books/             # Book-related endpoints
+├── borrow/            # Borrowing/returning logic
+├── library_borrow/    # Core settings & URL routing
+├── manage.py
+├── Dockerfile
+├── ngrok.yml
+├── requirements.txt
+```
+
+</details>
+
+## 👨‍💻 Author
+
+**Illia Petukhov**  
+https://github.com/IlliaPetukhov
